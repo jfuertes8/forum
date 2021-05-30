@@ -1,0 +1,103 @@
+body {
+    background-color:rgb(233, 233, 233);
+}
+
+.nav li {
+    float: right;
+}
+
+.btn-primary {
+    background-color: #FF5964;
+    border: #FF5964;
+}
+
+.btn-primary:hover {
+    background-color: #c43741;
+}
+
+.info-block .row {
+    margin-top: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-image: url(../resources/bg.png);
+}
+
+.row {
+    margin-top: 50px;
+}
+
+.login_text_container {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.card {
+    padding: 30px;
+}
+
+.card input {
+    margin-bottom: 20px;
+}
+
+.first h2, .first .lead {
+    color: white;
+    width: 400px;
+}
+
+.first h2 {
+    font-weight: 900;
+}
+
+h2, .lead {
+    color: black;
+    width: 500px;
+}
+
+h2 {
+    font-size: 75px;
+    font-weight: 100;
+    width: 500px;
+    margin-bottom: 30px; 
+}
+
+#login {
+    display: none;
+}
+
+#register {
+    display: block;
+}
+
+.register small {
+    color: rgb(180, 180, 180)
+}
+
+.info-block {
+    background-color: white;
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+    max-width: 100%;
+}
+
+.info-block .lead {
+    width: 100%;
+}
+
+.info-block h2 {
+    width: 100%;
+}
+
+.bg-primary {
+    background-color: #FF5964 !important;
+}
+
+img {
+    height: 100px;
+    width: auto;
+}
+
+.steps h2 {
+    width: 100%;
+}

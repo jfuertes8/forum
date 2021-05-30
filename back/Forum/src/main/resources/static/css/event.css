@@ -1,0 +1,29 @@
+body {
+    background-color: rgb(233, 233, 233);
+}
+
+.first {
+    padding-top: 50px;
+}
+
+.block {
+    padding: 30px;
+}
+
+.img-fluid {
+    height: 300px;
+    border-radius: 5px;
+}
+
+h2 {
+    font-weight: 900;
+}
+
+.btn-primary {
+    background-color: #FF5964;
+    border: #FF5964;
+}
+
+.btn-primary:hover {
+    background-color: #c43741;
+}

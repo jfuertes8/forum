@@ -1,0 +1,121 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Forum | My Events</title>
+    <meta charset="utf-8">
+    <!--Link to Bootstrap's CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!--Link to Fontawesome-->
+    <script src="https://kit.fontawesome.com/fc00ef1987.js" crossorigin="anonymous"></script>
+    <!--Link to JQuery repository-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="<c:url value="/css/my_events.css" />">
+</head>
+
+<body>
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <h1><i class="fas fa-check-double" aria-hidden="true"></i> Forum</h1>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
+
+                <div class="text-end">
+                	<a href="#">Events</a>
+           			<a href="#">My Events</a>
+                    <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5 text-center main-block">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h2><i class="fas fa-walking"></i></h2>
+                <h1>Events I'm attending</h1>
+                <p class="lead">Here you will see the events where you have confirmed your registration and as of today are attending.</p>
+                <p>
+                    <a href="#" class="btn btn-outline-light active my-2"><i class="fas fa-walking"></i> Events I'm attending</a>
+                    <a href="#" class="btn btn-outline-light my-2"><i class="fas fa-hammer"></i> Events I've created</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+    
+    <c:choose>
+    
+    	<c:when test="${empty listado}">
+    
+	        <div class="container text-center empty-state-container">
+	            <h2><i class="far fa-comment-alt"></i></h2>
+	            <h3 id="empty-state-title">Oops! It looks like you haven't registered for any event yet. </h3>
+	            <p id="empty-state-text">Once you receive an event link, you can register and it will show here. If you have an awesome idea, you can create your own event by clicking the button below.</p>
+	            <button class="btn btn-primary">Create event <i class="fas fa-plus"></i></button>
+	        </div>
+    
+		</c:when>
+        
+            
+        <c:otherwise>
+        
+        <div class="container event-container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        
+        	<c:forEach var="ele" items="${listado}" varStatus="estado">    
+            
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                            preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" style="background-image: url(resources/guitar.jpg);" />
+                        </svg>
+                        <div class="card-body">
+                            <h4>${ele.eventName}</h4>
+                            <p class="card-text">${ele.eventDetail}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
+                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel participation</a>
+                                </div>
+                                <small class="text-muted"><i class="fas fa-walking"></i></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+             </c:forEach>   
+        
+            </div>
+        </div>
+   
+  	 </c:otherwise>
+   
+   </c:choose>
+        
+    </div>
+
+    </main>
+
+    <!-- FOOTER -->
+  <hr class="featurette-divider">
+  <footer class="container">
+    <p class="float-end"><a href="#">Back to top <i class="fas fa-chevron-up"></i></a></p>
+    <p>&copy; 2021 Forum, Inc. </p>
+  </footer>
+</body>
+
+</html>
