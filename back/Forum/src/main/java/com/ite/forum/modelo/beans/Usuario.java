@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -70,6 +71,13 @@ public class Usuario implements Serializable {
 
 	public void setEvents(List<Event> events) {
 		this.events = events;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Usuario [userEmail=" + userEmail + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", userPassword=" + userPassword + "]";
 	}
 
 }

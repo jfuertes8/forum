@@ -34,7 +34,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
 
         <div class="text-end">
-           <a href="#">Events</a>
+           <a href="/event/all">Events</a>
            <a href="#">My Events</a>
            <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
         </div>

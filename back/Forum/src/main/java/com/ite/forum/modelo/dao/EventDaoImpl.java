@@ -1,5 +1,7 @@
 package com.ite.forum.modelo.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class EventDaoImpl implements IntEventDao {
 		}
 		
 		return filas;
+	}
+
+	@Override
+	public List<Event> mostrarTodos() {
+		return erepo.findAll();
 	}
 
 }

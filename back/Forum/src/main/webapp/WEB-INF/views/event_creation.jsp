@@ -35,7 +35,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
 
         <div class="text-end">
-          <a href="#">Events</a>
+          <a href="/event/all">Events</a>
           <a href="#">My Events</a>
           <a id="register_button" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
         </div>
@@ -47,28 +47,29 @@
     <div class="row">
       <div class="col-sm-12 my-5">
         <div class="card block">
+          <p>${mensaje}</p>
           <h1>New Event</h1>
           <p>Fill in the data below to create a new event. All the information is mandatory.</p>
           <hr>
-          <form>
+          <form action="/event/create" method="post">
             <div class="row">
             <div class="mb-3 col-md-6">
               <label for="exampleInputEmail1" class="form-label"><i class="fas fa-signature"></i> Name of the event:</label>
               <div id="emailHelp" class="form-text">This is the name participants will see when they click on your registration link. Try to make it catchy.</div>
-              <input type="email" class="form-control my-3" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="text" class="form-control my-3" id="exampleInputEmail1" aria-describedby="emailHelp" name="eventName">
             </div>
 
             <div class="mb-3 col-md-6">
               <label for="exampleInputPassword1" class="form-label"><i class="fas fa-user-alt"></i> Organizer</label>
               <div id="emailHelp" class="form-text">Please write here the name of the organizer of the event, either a particular person or a group or organization.</div>
-              <input type="text" class="form-control my-3" id="exampleInputPassword1">
+              <input type="text" class="form-control my-3" id="exampleInputPassword1" name="eventOrganizer">
             </div>
           </div>
 
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-file-alt"></i> Short decription</label>
               <div id="emailHelp" class="form-text">Please write a brief description of what the event is about, so participants can have more information about it.</div>
-              <input type="textarea" class="form-control my-3 field-text" id="exampleInputPassword1">
+              <input type="text" class="form-control my-3 field-text" id="exampleInputPassword1" name="eventDetail">
             </div>
 
             <div class="row">
@@ -76,19 +77,13 @@
             <div class="mb-3 col-md-4">
               <label for="exampleInputPassword1" class="form-label"><i class="fas fa-users"></i> Assistants</label>
               <div id="emailHelp" class="form-text">Select the maximum number of participants for this event</div>
-              <input type="number" class="form-control my-3" id="exampleInputPassword1">
+              <input type="number" class="form-control my-3" id="exampleInputPassword1" name="maxAssistants">
             </div>
 
             <div class="mb-3 col-md-4">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
               <div id="emailHelp" class="form-text">When is the event happening?</div>
-              <input type="number" class="form-control my-3" id="exampleInputPassword1">
-            </div>
-
-            <div class="mb-3 col-md-4">
-              <label for="exampleInputPassword1" class="form-label"><i class="far fa-clock"></i> Time</label>
-              <div id="emailHelp" class="form-text">And at what time?</div>
-              <input type="number" class="form-control my-3" id="exampleInputPassword1">
+              <input type="datetime-local" class="form-control my-3" id="exampleInputPassword1" name="event_dateTimeDate">
             </div>
 
           </div>
@@ -99,11 +94,7 @@
               <p>Once this time comes, users will not be able to register anymore for this event.</p>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
-                <input type="number" class="form-control my-3" id="exampleInputPassword1">
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"><i class="far fa-clock"></i> Time</label>
-                <input type="number" class="form-control my-3" id="exampleInputPassword1">
+                <input type="datetime-local" class="form-control my-3" id="exampleInputPassword1" name="eventDeadlineDate">
               </div>
             </div>
           </div>
@@ -111,7 +102,7 @@
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label my-3"><i class="fas fa-map-marker-alt"></i> Location</label>
               <div id="emailHelp" class="form-text">Please write down the event address so people will know where to go</div>
-              <input type="number" class="form-control my-3" id="exampleInputPassword1">
+              <input type="text" class="form-control my-3" id="exampleInputPassword1" name="location">
             </div>
             
             <button type="submit" class="btn btn-primary">Create event</button>

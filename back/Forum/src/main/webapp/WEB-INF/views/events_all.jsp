@@ -41,13 +41,9 @@
     <section class="py-5 text-center main-block">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h2><i class="fas fa-walking"></i></h2>
-                <h1>Events I'm attending</h1>
+                <h1>All events</h1>
                 <p class="lead">Here you will see the events where you have confirmed your registration and as of today are attending.</p>
-                <p>
-                    <a href="#" class="btn btn-outline-light active my-2"><i class="fas fa-walking"></i> Events I'm attending</a>
-                    <a href="#" class="btn btn-outline-light my-2"><i class="fas fa-hammer"></i> Events I've created</a>
-                </p>
+                <p>${mensaje}</p>
             </div>
         </div>
     </section>
@@ -60,9 +56,9 @@
     
 	        <div class="container text-center empty-state-container">
 	            <h2><i class="far fa-comment-alt"></i></h2>
-	            <h3 id="empty-state-title">Oops! It looks like you haven't registered for any event yet. </h3>
-	            <p id="empty-state-text">Once you receive an event link, you can register and it will show here. If you have an awesome idea, you can create your own event by clicking the button below.</p>
-	            <button class="btn btn-primary">Create event <i class="fas fa-plus"></i></button>
+	            <h3 id="empty-state-title">Oops! Looks like none has created events yet. </h3>
+	            <p id="empty-state-text">Be the pioneer, the adventurer and set the path for the rest. Create your first event.</p>
+	            <a class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
 	        </div>
     
 		</c:when>
@@ -72,7 +68,6 @@
         
         <div class="container event-container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        	<p>${mensaje}</p>
         	<c:forEach var="ele" items="${listado}" varStatus="estado">    
             
                 <div class="col">

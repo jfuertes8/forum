@@ -153,4 +153,14 @@ public class Event implements Serializable {
 		this.assistants = assistants;
 	}
 
+	@Override
+	public String toString() {
+		return "Event [eventId=" + eventId + ", event_dateTime=" + event_dateTime + ", eventDeadline=" + eventDeadline
+				+ ", eventDetail=" + eventDetail + ", eventName=" + eventName + ", eventOrganizer=" + eventOrganizer
+				+ ", location=" + location + ", maxAssistants=" + maxAssistants + ", assistants=" + assistants
+				+ ", usuario=" + usuario + "]";
+	}
+	
+	
+
 }
