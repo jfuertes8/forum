@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ite.forum.modelo.beans.Event;
+import com.ite.forum.modelo.beans.Usuario;
 import com.ite.forum.modelo.repository.EventRepository;
 
 @Service
@@ -36,6 +37,11 @@ public class EventDaoImpl implements IntEventDao {
 	@Override
 	public List<Event> mostrarTodos() {
 		return erepo.findAll();
+	}
+
+	@Override
+	public List<Event> eventosCreados(Usuario user) {
+		return erepo.findByUsuario(user);
 	}
 
 }

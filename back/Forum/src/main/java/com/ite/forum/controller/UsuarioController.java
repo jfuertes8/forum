@@ -2,6 +2,8 @@ package com.ite.forum.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,31 +28,21 @@ public class UsuarioController {
 	IntBookingDao bdao;
 
 	@PostMapping("/login")
-	public String login(Model model, Usuario usuario) {
+	public String login(Model model, Usuario usuario, HttpSession session) {
 		
 		String mensaje;
 		
 		Usuario user = udao.login(usuario.getUserEmail()); 
 		
 		if (usuario.getUserEmail().equals(user.getUserEmail()) && usuario.getUserPassword().equals(user.getUserPassword())) {
-			ArrayList<Event> eventosParticipa = bdao.eventosParticipaUsuario(user);
-			model.addAttribute("listado", eventosParticipa);
-			return "my_events";
+			session.setAttribute("userSession", user);
+			return "redirect:/event/all";
 		} else {
 			mensaje = "<span style=\"color: red; font-weight: 500;\">Oops! Incorrect username or password</span>";
 			model.addAttribute("mensaje", mensaje);
 			return "index";
 		}
 	}
-	
-	/*@GetMapping("/assisting_events")
-	public String showParticipatingEvents(Model model, Usuario user) {
-		Usuario usuario = (Usuario) model.getAttribute("user");
-		ArrayList<Event> eventosParticipa = bdao.eventosParticipaUsuario(user);
-		model.addAttribute("listado", eventosParticipa);
-		System.out.println(eventosParticipa);
-		return "my_events";
-	}*/
 	
 	
 	@PostMapping("/register")
@@ -69,6 +61,14 @@ public class UsuarioController {
 			model.addAttribute("mensaje", mensaje);
 			return "index";
 		}
+	}
+	
+	@GetMapping("/logout")
+	public String cerrarSesion(Model model, HttpSession session) {
+	    if (session != null) {
+	        session.invalidate();
+	    }
+		return "index";
 	}
 	
 	

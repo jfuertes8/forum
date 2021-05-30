@@ -43,9 +43,9 @@
     <section class="py-5 text-center main-block">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1>All events</h1>
-                <p class="lead">Take a look at all the events created by the users and see if there's any where you'll like to attend.</p>
-                <p>${mensaje}</p>
+                <h2><i class="fas fa-hammer"></i></h2>
+                <h1>Events I've created</h1>
+                <p class="lead">Here's a list of all the events you have created. If it's empty, you can start your own event by clicking on "New Event"</p>
             </div>
         </div>
     </section>
@@ -58,9 +58,9 @@
     
 	        <div class="container text-center empty-state-container">
 	            <h2><i class="far fa-comment-alt"></i></h2>
-	            <h3 id="empty-state-title">Oops! Looks like none has created events yet. </h3>
-	            <p id="empty-state-text">Be the pioneer, the adventurer and set the path for the rest. Create your first event.</p>
-	            <a class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
+	            <h3 id="empty-state-title">Oops! It looks like you haven't created any event yet. </h3>
+	            <p id="empty-state-text">If you have an awesome idea, you can create your own event by clicking the button below.</p>
+	            <a href="/event/create" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
 	        </div>
     
 		</c:when>
@@ -70,6 +70,7 @@
         
         <div class="container event-container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        	<p>${mensaje}</p>
         	<c:forEach var="ele" items="${listado}" varStatus="estado">    
             
                 <div class="col">
@@ -88,7 +89,7 @@
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
                                     <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel participation</a>
                                 </div>
-                                <small class="text-muted"><i class="fas fa-walking"></i></small>
+                                <small class="text-muted"><i class="fas fa-hammer"></i></small>
                             </div>
                         </div>
                     </div>

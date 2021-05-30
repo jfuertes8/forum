@@ -35,8 +35,10 @@
 
         <div class="text-end">
            <a href="/event/all">Events</a>
-           <a href="#">My Events</a>
+           <a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
+           <a href="/event/created_events"> <i class="fas fa-hammer"></i> Created Events</a>
            <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
+           <a href="/user/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
       </div>
     </div>
@@ -94,7 +96,7 @@
             <form>
               <h1 class="h3 mb-3 fw-normal">Register for this event</h1>
               <p>Since you are already logged in, you can register with one simple click</p>
-              <a class="w-100 btn btn-lg btn-primary" href="/event/register">Confirm participation</a>
+              <a class="w-100 btn btn-lg btn-primary" href="/event/register/${evento.eventId}">Confirm participation</a>
             </form>
           </main>
         </div>

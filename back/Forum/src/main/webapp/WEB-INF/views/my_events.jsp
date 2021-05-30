@@ -31,8 +31,10 @@
 
                 <div class="text-end">
                 	<a href="/event/all">Events</a>
-           			<a href="#">My Events</a>
+           			<a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
+           			<a href="/event/created_events"><i class="fas fa-hammer"></i> Created Events</a>
                     <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
+                    <a href="/user/logout"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
         </div>
@@ -44,10 +46,6 @@
                 <h2><i class="fas fa-walking"></i></h2>
                 <h1>Events I'm attending</h1>
                 <p class="lead">Here you will see the events where you have confirmed your registration and as of today are attending.</p>
-                <p>
-                    <a href="#" class="btn btn-outline-light active my-2"><i class="fas fa-walking"></i> Events I'm attending</a>
-                    <a href="#" class="btn btn-outline-light my-2"><i class="fas fa-hammer"></i> Events I've created</a>
-                </p>
             </div>
         </div>
     </section>
@@ -62,7 +60,7 @@
 	            <h2><i class="far fa-comment-alt"></i></h2>
 	            <h3 id="empty-state-title">Oops! It looks like you haven't registered for any event yet. </h3>
 	            <p id="empty-state-text">Once you receive an event link, you can register and it will show here. If you have an awesome idea, you can create your own event by clicking the button below.</p>
-	            <button class="btn btn-primary">Create event <i class="fas fa-plus"></i></button>
+	            <a href="event/create" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
 	        </div>
     
 		</c:when>

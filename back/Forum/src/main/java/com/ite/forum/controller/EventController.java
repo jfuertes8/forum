@@ -3,6 +3,8 @@ package com.ite.forum.controller;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ite.forum.modelo.beans.Event;
+import com.ite.forum.modelo.beans.Usuario;
+import com.ite.forum.modelo.dao.IntBookingDao;
 import com.ite.forum.modelo.dao.IntEventDao;
 import com.ite.forum.modelo.dao.IntUsuarioDao;
 
@@ -27,6 +31,9 @@ public class EventController {
 	@Autowired
 	IntUsuarioDao udao;
 	
+	@Autowired
+	IntBookingDao bdao;
+	
 	//Mostramos la página del evento con la info de ese evento
 	@GetMapping("view/{id}")
 	public String viewEvent(Model model, @PathVariable(name="id") int  idEvento) {
@@ -38,20 +45,22 @@ public class EventController {
 	
 	//Mostramos el formulario de creación de evento
 	@GetMapping("create")
-	public String newEvent(Model model ) {
+	public String newEvent(Model model) {
 		return "event_creation";
 	}
 	
 	
 	//Damos de alta el evento en la BBDD
 	@PostMapping("create")
-	public String altaEvento (Model model, Event evento) {
+	public String altaEvento (Model model, Event evento, HttpSession session) {
 		String mensaje;
 		
 		evento.setEvent_dateTime(new Date());
 		evento.setEventDeadline(new Date());
 		
-		evento.setUsuario(udao.login("yo@yo.es"));
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		
+		evento.setUsuario(user);
 		System.out.println(evento);
 		
 		int altaOk = edao.altaEvento(evento);
@@ -74,4 +83,25 @@ public class EventController {
 		model.addAttribute("listado", listado);
 		return "events_all";
 	}
+	
+	
+	//Mostramos los eventos donde se ha registrado el usuario
+	@GetMapping("/participate")
+	public String eventosParticipa(Model model, HttpSession session) {
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		ArrayList<Event> eventosParticipa = bdao.eventosParticipaUsuario(user);
+		model.addAttribute("listado", eventosParticipa);
+		return "my_events";
+	}
+	
+	
+	//Mostramos los eventos creados por el usuario
+	@GetMapping("/created_events")
+	public String eventosCreados(Model model, HttpSession session) {
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		ArrayList<Event> listado = (ArrayList<Event>) edao.eventosCreados(user);
+		model.addAttribute("listado", listado);
+		return "created_events";
+	}
+	
 }
