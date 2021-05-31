@@ -43,14 +43,21 @@ public class EventController {
 		Event evento = edao.mostrarEvento(idEvento);
 		model.addAttribute("evento", evento);
 		
+		System.out.println(evento);
+		
 		//Veo si el usuario ya está registrado en este evento. Le cambiaré el CTA si así ocurre
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		Booking booking = bdao.reservaPorEventoAndEmail(evento, user);
 		
-		if(booking != null) {
-			model.addAttribute("booking", 1);
+		System.out.println(user);
+		
+		//Veo si el evento lo ha creado el propio usuario, si el usuario tiene una reserva o si ninguna de las dos. Le cambiaré el CTA si así ocurre
+		if (evento.getUsuario().getUserEmail().equals(user.getUserEmail())) {
+			model.addAttribute("CTA", -1);
+		} else if (booking != null) {
+			model.addAttribute("CTA", 1);
 		} else {
-			model.addAttribute("booking", 0);
+			model.addAttribute("CTA", 0);
 		}
 		
 		return "event";

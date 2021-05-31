@@ -46,6 +46,7 @@
                 <h2><i class="fas fa-walking"></i></h2>
                 <h1>Events I'm attending</h1>
                 <p class="lead">Here you will see the events where you have confirmed your registration and as of today are attending.</p>
+            	<p>${mensaje}</p>
             </div>
         </div>
     </section>
@@ -70,7 +71,6 @@
         
         <div class="container event-container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        	<p>${mensaje}</p>
         	<c:forEach var="ele" items="${listado}" varStatus="estado">    
             
                 <div class="col">

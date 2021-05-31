@@ -96,10 +96,16 @@
             <form>
             
             <c:choose>
-            	<c:when test="${booking > 0}">
+            	<c:when test="${CTA > 0}">
 		              <h1 class="h3 mb-3 fw-normal"><i class="fas fa-check-double" aria-hidden="true" style="color: green;"></i> <br>You are already registered for this event</h1>
 		              <p>If you have changed your mind, you can always cancel your participation</p>
 		              <a class="w-100 btn btn-lg btn-secondary" href="/event/register/${evento.eventId}">Cancel participation</a>
+            	</c:when>
+            	
+            	<c:when test="${CTA < 0}">
+		              <h1 class="h3 mb-3 fw-normal">You created this event</h1>
+		              <p>If you have changed your mind, you can always cancel your event</p>
+		              <a class="w-100 btn btn-lg btn-secondary" href="/event/register/${evento.eventId}">Cancel event</a>
             	</c:when>
             	
             	<c:otherwise>

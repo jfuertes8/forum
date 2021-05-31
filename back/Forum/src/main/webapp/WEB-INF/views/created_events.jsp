@@ -45,7 +45,8 @@
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h2><i class="fas fa-hammer"></i></h2>
                 <h1>Events I've created</h1>
-                <p class="lead">Here's a list of all the events you have created. If it's empty, you can start your own event by clicking on "New Event"</p>
+                <p class="lead">Here's a list of all the events you have created. If it's empty, you can start your own event by clicking on "Create Event"</p>
+  				<p>${mensaje}</p>          
             </div>
         </div>
     </section>
@@ -70,7 +71,6 @@
         
         <div class="container event-container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        	<p>${mensaje}</p>
         	<c:forEach var="ele" items="${listado}" varStatus="estado">    
             
                 <div class="col">
@@ -87,7 +87,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
-                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel participation</a>
+                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel event</a>
                                 </div>
                                 <small class="text-muted"><i class="fas fa-hammer"></i></small>
                             </div>
