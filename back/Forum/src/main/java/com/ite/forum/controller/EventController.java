@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ite.forum.modelo.beans.Booking;
 import com.ite.forum.modelo.beans.Event;
 import com.ite.forum.modelo.beans.Usuario;
 import com.ite.forum.modelo.dao.IntBookingDao;
@@ -36,9 +37,22 @@ public class EventController {
 	
 	//Mostramos la página del evento con la info de ese evento
 	@GetMapping("view/{id}")
-	public String viewEvent(Model model, @PathVariable(name="id") int  idEvento) {
+	public String viewEvent(Model model, @PathVariable(name="id") int  idEvento, HttpSession session) {
+		
+		//Me traigo la información del evento para pintarla en el modulo izquierdo de la pantalla
 		Event evento = edao.mostrarEvento(idEvento);
 		model.addAttribute("evento", evento);
+		
+		//Veo si el usuario ya está registrado en este evento. Le cambiaré el CTA si así ocurre
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		Booking booking = bdao.reservaPorEventoAndEmail(evento, user);
+		
+		if(booking != null) {
+			model.addAttribute("booking", 1);
+		} else {
+			model.addAttribute("booking", 0);
+		}
+		
 		return "event";
 	}
 	

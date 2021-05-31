@@ -90,4 +90,12 @@ public class Booking implements Serializable {
 		this.event = event;
 	}
 
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", bookingDate=" + bookingDate + ", burnDate=" + burnDate
+				+ ", burner=" + burner + ", usuario=" + usuario.getUserEmail() + ", event=" + event.getEventId() + "]";
+	}
+	
+	
+
 }

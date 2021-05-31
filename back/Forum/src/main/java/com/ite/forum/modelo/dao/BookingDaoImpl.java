@@ -30,4 +30,9 @@ public class BookingDaoImpl implements IntBookingDao {
 		
 		return eventosParticipa;
 	}
+
+	@Override
+	public Booking reservaPorEventoAndEmail(Event event, Usuario user) {
+		return brepo.findByEventAndUsuario(event, user);
+	}
 }

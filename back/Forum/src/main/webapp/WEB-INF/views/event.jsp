@@ -94,9 +94,21 @@
         <div class="card block">
           <main class="form-signin" id="login">
             <form>
-              <h1 class="h3 mb-3 fw-normal">Register for this event</h1>
-              <p>Since you are already logged in, you can register with one simple click</p>
-              <a class="w-100 btn btn-lg btn-primary" href="/event/register/${evento.eventId}">Confirm participation</a>
+            
+            <c:choose>
+            	<c:when test="${booking > 0}">
+		              <h1 class="h3 mb-3 fw-normal"><i class="fas fa-check-double" aria-hidden="true" style="color: green;"></i> <br>You are already registered for this event</h1>
+		              <p>If you have changed your mind, you can always cancel your participation</p>
+		              <a class="w-100 btn btn-lg btn-secondary" href="/event/register/${evento.eventId}">Cancel participation</a>
+            	</c:when>
+            	
+            	<c:otherwise>
+            		  <h1 class="h3 mb-3 fw-normal">Register for this event</h1>
+		              <p>Since you are already logged in, you can register with one simple click</p>
+		              <a class="w-100 btn btn-lg btn-primary" href="/event/register/${evento.eventId}">Confirm participation</a>
+            	</c:otherwise>
+            </c:choose>
+            
             </form>
           </main>
         </div>
