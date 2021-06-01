@@ -98,8 +98,11 @@ public class EventController {
 	//Abrimos la página de eventos y la cargamos con todos los eventos
 	@GetMapping("/all")
 	public String allEvents (Model model) {
-		ArrayList<Event> listado = (ArrayList<Event>) edao.mostrarTodos();
-		model.addAttribute("listado", listado);
+		ArrayList<Event> listadoTodos = (ArrayList<Event>) edao.mostrarTodos();
+		model.addAttribute("listado", listadoTodos);
+		
+		
+		
 		return "events_all";
 	}
 	
@@ -207,9 +210,20 @@ public class EventController {
 		model.addAttribute("success_block", 1);
 		model.addAttribute("color", "#FF9B86");
 		model.addAttribute("success_title", "<i class=\"far fa-sad-tear\"></i><br>Ooh... <br>sorry to see you go.");
-		model.addAttribute("success_description", "It's fine, we all have our lifes to live. You can register back by clicking on the button below");
+		model.addAttribute("success_description", "It's fine, we all have our lifes to live. You can register back by clicking on the button below anytime you want.");
 		
 		return "forward:/event/view/" + event.getEventId();
 	}
+	
+	
+	//Un usuario elimina uno de sus eventos creados
+	@GetMapping("/cancelevent/{eventId}")
+	public String borrarEvento(Model model, HttpSession session, @PathVariable(name="eventId") int  idEvento) {
+		
+		
+		
+		return null;
+	}
+	
 	
 }

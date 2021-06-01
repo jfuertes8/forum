@@ -82,8 +82,8 @@
                             <rect width="100%" height="100%" style="background-image: url(resources/guitar.jpg);" />
                         </svg>
                         <div class="card-body">
-                            <h4>${ele.eventName}</h4>
-                            <p class="card-text">${ele.eventDetail}</p>
+                            <h4 class="title-max-chars">${ele.eventName}</h4>
+                            <p class="card-text description-max-chars">${ele.eventDetail}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>

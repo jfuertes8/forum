@@ -55,3 +55,17 @@
 .empty-state-container h2 {
     font-size: 50px;
 }
+
+.title-max-chars {
+    width: 25ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.description-max-chars {
+    width: 35ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -71,7 +71,7 @@
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-file-alt"></i> Short decription</label>
               <div id="emailHelp" class="form-text">Please write a brief description of what the event is about, so participants can have more information about it.</div>
-              <input type="text" class="form-control my-3 field-text" id="exampleInputPassword1" name="eventDetail">
+              <textarea class="form-control my-3 field-text" id="exampleInputPassword1" maxlength="500" name="eventDetail"></textarea>
             </div>
 
             <div class="row">

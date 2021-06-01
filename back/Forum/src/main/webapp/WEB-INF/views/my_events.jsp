@@ -61,7 +61,7 @@
 	            <h2><i class="far fa-comment-alt"></i></h2>
 	            <h3 id="empty-state-title">Oops! It looks like you haven't registered for any event yet. </h3>
 	            <p id="empty-state-text">Once you receive an event link, you can register and it will show here. If you have an awesome idea, you can create your own event by clicking the button below.</p>
-	            <a href="event/create" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
+	            <a href="/event/all" class="btn btn-primary">Show events <i class="fas fa-search"></i></a>
 	        </div>
     
 		</c:when>
@@ -82,12 +82,12 @@
                             <rect width="100%" height="100%" style="background-image: url(resources/guitar.jpg);" />
                         </svg>
                         <div class="card-body">
-                            <h4>${ele.eventName}</h4>
-                            <p class="card-text">${ele.eventDetail}</p>
+                            <h4 class="title-max-chars">${ele.eventName}</h4>
+                            <p class="card-text description-max-chars">${ele.eventDetail}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
-                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel participation</a>
+                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-window-close"></i> Cancel participation</a>
                                 </div>
                                 <small class="text-muted"><i class="fas fa-walking"></i></small>
                             </div>
