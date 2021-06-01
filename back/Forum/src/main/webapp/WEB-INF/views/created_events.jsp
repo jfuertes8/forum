@@ -87,7 +87,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
-                                    <a class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel event</a>
+                                    <a href="/event/cancelevent/${ele.eventId}" class="btn btn-sm btn-outline-secondary"><i class="far fa-trash-alt"></i> Cancel event</a>
                                 </div>
                                 <small class="text-muted"><i class="fas fa-hammer"></i></small>
                             </div>

@@ -42,14 +42,12 @@ public class EventController {
 		//Me traigo la información del evento para pintarla en el modulo izquierdo de la pantalla
 		Event evento = edao.mostrarEvento(idEvento);
 		model.addAttribute("evento", evento);
-		
-		System.out.println(evento);
+
 		
 		//Veo si el usuario ya está registrado en este evento. Le cambiaré el CTA si así ocurre
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		Booking booking = bdao.reservaPorEventoAndEmail(evento, user);
 		
-		System.out.println(user);
 		
 		//Veo si el evento lo ha creado el propio usuario, si el usuario tiene una reserva o si ninguna de las dos. Le cambiaré el CTA si así ocurre
 		if (evento.getUsuario().getUserEmail().equals(user.getUserEmail())) {
@@ -123,6 +121,95 @@ public class EventController {
 		ArrayList<Event> listado = (ArrayList<Event>) edao.eventosCreados(user);
 		model.addAttribute("listado", listado);
 		return "created_events";
+	}
+	
+	//Un usuario se registra en un evento
+	@GetMapping("/register/{eventId}")
+	public String registroEnEvento(Model model, HttpSession session, @PathVariable(name="eventId") int  idEvento) {
+		String mensaje;
+		
+		//Vemos si quedan huecos libres para poder registrarse
+		Event event = edao.mostrarEvento(idEvento);
+		
+		if (event.getAssistants() == event.getMaxAssistants()) {
+			
+			mensaje = "ya se ha llegado al máximo de participantes para este evento";
+			model.addAttribute("mensaje", mensaje);
+			return "event";
+			
+		} else {
+			
+			//Inicializamos una reserva vacía
+			Booking booking = new Booking();
+			
+			//Rellenamos la reserva con los datos del evento y usuario
+			booking.setBookingId(0);
+			booking.setBookingDate(new Date());
+			booking.setBurnDate(new Date());
+			booking.setBurner("Luis");
+			booking.setEvent(event);
+			booking.setUsuario((Usuario) session.getAttribute("userSession"));
+			
+			//Damos de alta la reserva en la BBDD y nos traemos el OK o el KO
+			int registroOk = bdao.registroEvento(booking);
+			
+			//Aumentamos en 1 el número de participantes del evento
+			int assistants = event.getAssistants();
+			assistants = assistants + 1;
+			
+			event.setAssistants(assistants);
+			
+			//Guardamos el evento con el asistente sumado en la BBDD
+			int registroAssistantsOk = edao.altaEvento(event);
+			
+			
+			if (registroOk != 1 || registroAssistantsOk != 1) {
+				mensaje = "ha ocurrido un error al realizar el registro en el evento";
+				model.addAttribute("mensaje", mensaje);
+			}
+			
+			model.addAttribute("success_block", 1);
+			model.addAttribute("color", "lightgreen");
+			model.addAttribute("success_title", "<i class=\"far fa-laugh-beam\"></i><br>You have succesfully registered for the event!");
+			model.addAttribute("success_description", "You'll now see this event under the 'Attending events' section at the top");
+			
+			return "forward:/event/view/" + event.getEventId();
+		}
+	}
+	
+	
+	
+	//Un usuario cancela su registro en un evento
+	@GetMapping("/cancelparticipation/{eventId}")
+	public String cancelParticipation(Model model, HttpSession session, @PathVariable(name="eventId") int  idEvento) {
+		
+		//Recuperamos el usuario de la sesión
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		
+		//Recuperamos el evento que estamos visualiando
+		Event event = edao.mostrarEvento(idEvento);
+		
+		//Con las claves primarias de cada uno busco la reserva
+		Booking booking = bdao.reservaPorEventoAndEmail(event, user);
+		
+		//Con el id de la reserva, borro ese booking de la tabla reservas
+		int BookingCancelOk = bdao.borrarReserva(booking.getBookingId());
+		
+		//Disminuimos en 1 el numero de participantes del evento
+		int assistants = event.getAssistants();
+		assistants = assistants - 1;
+		
+		event.setAssistants(assistants);
+		
+		//Guardamos el evento con el asistente sumado en la BBDD
+		int registroAssistantsOk = edao.altaEvento(event);
+		
+		model.addAttribute("success_block", 1);
+		model.addAttribute("color", "#FF9B86");
+		model.addAttribute("success_title", "<i class=\"far fa-sad-tear\"></i><br>Ooh... <br>sorry to see you go.");
+		model.addAttribute("success_description", "It's fine, we all have our lifes to live. You can register back by clicking on the button below");
+		
+		return "forward:/event/view/" + event.getEventId();
 	}
 	
 }

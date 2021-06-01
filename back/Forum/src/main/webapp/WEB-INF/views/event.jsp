@@ -91,6 +91,16 @@
         </div>
       </div>
       <div class="col-sm-4">
+      
+      <c:if test = "${success_block > 0}">
+      
+      	<div style="background-color: ${color}; margin-bottom: 20px;" class="card block">
+	      	<h2>${success_title}</h2>
+	      	<p>${success_description}</p>
+      	</div>
+      	
+      </c:if>
+      
         <div class="card block">
           <main class="form-signin" id="login">
             <form>
@@ -99,13 +109,13 @@
             	<c:when test="${CTA > 0}">
 		              <h1 class="h3 mb-3 fw-normal"><i class="fas fa-check-double" aria-hidden="true" style="color: green;"></i> <br>You are already registered for this event</h1>
 		              <p>If you have changed your mind, you can always cancel your participation</p>
-		              <a class="w-100 btn btn-lg btn-secondary" href="/event/register/${evento.eventId}">Cancel participation</a>
+		              <a class="w-100 btn btn-lg btn-secondary" href="/event/cancelparticipation/${evento.eventId}">Cancel participation</a>
             	</c:when>
             	
             	<c:when test="${CTA < 0}">
 		              <h1 class="h3 mb-3 fw-normal">You created this event</h1>
 		              <p>If you have changed your mind, you can always cancel your event</p>
-		              <a class="w-100 btn btn-lg btn-secondary" href="/event/register/${evento.eventId}">Cancel event</a>
+		              <a class="w-100 btn btn-lg btn-secondary" href="/event/cancelevent/${evento.eventId}">Cancel event</a>
             	</c:when>
             	
             	<c:otherwise>

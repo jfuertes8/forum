@@ -35,4 +35,32 @@ public class BookingDaoImpl implements IntBookingDao {
 	public Booking reservaPorEventoAndEmail(Event event, Usuario user) {
 		return brepo.findByEventAndUsuario(event, user);
 	}
+
+	@Override
+	public int registroEvento(Booking booking) {
+		int filas = 0;
+		
+		try {
+			brepo.save(booking);
+			filas = 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
+	@Override
+	public int borrarReserva(int BookingId) {
+		int filas = 0;
+		
+		try {
+			brepo.deleteById(BookingId);
+			filas = 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
 }
