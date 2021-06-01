@@ -115,7 +115,8 @@
             	<c:when test="${CTA < 0}">
 		              <h1 class="h3 mb-3 fw-normal">You created this event</h1>
 		              <p>If you have changed your mind, you can always cancel your event</p>
-		              <a class="w-100 btn btn-lg btn-outline-secondary" href="/event/cancelevent/${evento.eventId}"><i class="far fa-trash-alt"></i> Cancel event</a>
+		              <a class="w-100 btn btn-lg btn-outline-danger main-button" href="/event/cancelevent/${evento.eventId}"><i class="far fa-trash-alt"></i> Cancel event</a>
+            	      <a class="w-100 btn btn-lg btn-outline-secondary" href="/event/editevent/${evento.eventId}"><i class="fas fa-pen"></i> Edit event</a>
             	</c:when>
             	
             	<c:otherwise>

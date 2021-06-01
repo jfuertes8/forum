@@ -27,3 +27,7 @@ h2 {
 .btn-primary:hover {
     background-color: #c43741;
 }
+
+.main-button {
+	margin-bottom: 20px;
+}

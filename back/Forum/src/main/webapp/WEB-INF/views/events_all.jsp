@@ -40,9 +40,10 @@
         </div>
     </header>
 
-    <section class="py-5 text-center main-block">
+    <section class="py-0 text-center main-block">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
+                <h2><i class="fas fa-meteor"></i></h2>
                 <h1>All events</h1>
                 <p class="lead">Take a look at all the events created by the users and see if there's any where you'll like to attend.</p>
                 <p>${mensaje}</p>
@@ -87,7 +88,11 @@
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-primary" href="/event/view/${ele.eventId}"><i class="far fa-eye"></i> View Event</a>
                                 </div>
-                                <small class="text-muted"></small>
+                                <small class="text-muted">
+	                                <c:if test = "${ele.usuario.userEmail == user.userEmail}">
+	                                	<i class="fas fa-hammer"></i>
+	                                </c:if>
+                                </small>
                             </div>
                         </div>
                     </div>

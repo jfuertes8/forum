@@ -71,7 +71,8 @@
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-file-alt"></i> Short decription</label>
               <div id="emailHelp" class="form-text">Please write a brief description of what the event is about, so participants can have more information about it.</div>
-              <textarea class="form-control my-3 field-text" id="exampleInputPassword1" maxlength="500" name="eventDetail"></textarea>
+              <textarea class="form-control my-3 field-text" id="textarea-event" maxlength="500" name="eventDetail"></textarea>
+              <h6 style="color: gray"><span id="char-countdown">0</span>/500</h6>
             </div>
 
             <div class="row">
@@ -129,6 +130,14 @@
     integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
     crossorigin="anonymous"></script>
 
+  <script>
+  	$(function(){
+  		$("#textarea-event").on("keyup", function(){
+  			var text = $(this).val();
+  			$("#char-countdown").html(text.length);
+  		});
+  	});
+  </script>
 </body>
 
 </html>

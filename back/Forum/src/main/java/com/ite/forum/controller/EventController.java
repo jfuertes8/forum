@@ -87,7 +87,7 @@ public class EventController {
 		if (altaOk == 1) {
 			mensaje = "<span style=\"color: green;\">evento creado con éxito</span>";
 			model.addAttribute("mensaje", mensaje);
-			return "my_events";
+			return "created events";
 		} else {
 			mensaje = "<span style=\"color: red;\">Ha ocurrido un error al crear el evento</span>";
 			model.addAttribute("mensaje", mensaje);
@@ -97,11 +97,12 @@ public class EventController {
 	
 	//Abrimos la página de eventos y la cargamos con todos los eventos
 	@GetMapping("/all")
-	public String allEvents (Model model) {
+	public String allEvents (Model model, HttpSession session) {
 		ArrayList<Event> listadoTodos = (ArrayList<Event>) edao.mostrarTodos();
 		model.addAttribute("listado", listadoTodos);
 		
-		
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		model.addAttribute("user", user);
 		
 		return "events_all";
 	}
@@ -210,7 +211,7 @@ public class EventController {
 		model.addAttribute("success_block", 1);
 		model.addAttribute("color", "#FF9B86");
 		model.addAttribute("success_title", "<i class=\"far fa-sad-tear\"></i><br>Ooh... <br>sorry to see you go.");
-		model.addAttribute("success_description", "It's fine, we all have our lifes to live. You can register back by clicking on the button below anytime you want.");
+		model.addAttribute("success_description", "It's fine, we all have our lifes to live. You can register back by clicking on the button below anytime you want (as long as there are still free spots).");
 		
 		return "forward:/event/view/" + event.getEventId();
 	}
