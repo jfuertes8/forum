@@ -19,4 +19,8 @@ public interface IntBookingDao {
 	
 	//Cancelar la reserva de un evento
 	int borrarReserva(int BookingId);
+	
+	//Buscar todas las reservas de un evento concreto
+	ArrayList<Booking> buscarReservasEvento(Event event);
+	
 }

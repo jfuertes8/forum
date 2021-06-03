@@ -44,4 +44,18 @@ public class EventDaoImpl implements IntEventDao {
 		return erepo.findByUsuario(user);
 	}
 
+	@Override
+	public int borrarEvento(int eventId) {
+		int filas = 0;
+		
+		try {
+			erepo.deleteById(eventId);
+			filas = 1;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return filas;
+	}
+
 }

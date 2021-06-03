@@ -63,4 +63,9 @@ public class BookingDaoImpl implements IntBookingDao {
 		
 		return filas;
 	}
+
+	@Override
+	public ArrayList<Booking> buscarReservasEvento(Event event) {
+		return (ArrayList<Booking>) brepo.findByEvent(event);
+	}
 }

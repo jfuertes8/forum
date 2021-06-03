@@ -11,4 +11,5 @@ public interface IntEventDao {
 	List<Event> mostrarTodos();
 	int altaEvento(Event evento);
 	List<Event> eventosCreados(Usuario user);
+	int borrarEvento(int eventId);
 }

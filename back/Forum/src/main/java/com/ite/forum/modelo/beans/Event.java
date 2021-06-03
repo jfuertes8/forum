@@ -43,6 +43,8 @@ public class Event implements Serializable {
 	private int maxAssistants;
 
 	private int assistants;
+	
+	private String photos;
 
 	//bi-directional many-to-many association to Usuario
 	@ManyToMany
@@ -151,6 +153,14 @@ public class Event implements Serializable {
 
 	public void setAssistants(int assistants) {
 		this.assistants = assistants;
+	}
+	
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 
 	@Override

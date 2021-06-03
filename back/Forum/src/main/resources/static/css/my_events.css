@@ -64,8 +64,16 @@
 }
 
 .description-max-chars {
-    width: 35ch;
+    width: 30ch;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+h4 {
+	font-size: 17px;
+}
+
+.card-text {
+	font-size: 15px;
 }

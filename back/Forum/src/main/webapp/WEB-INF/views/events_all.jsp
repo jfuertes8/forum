@@ -70,17 +70,12 @@
         <c:otherwise>
         
         <div class="container event-container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         	<c:forEach var="ele" items="${listado}" varStatus="estado">    
             
                 <div class="col">
                     <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" style="background-image: url(resources/guitar.jpg);" />
-                        </svg>
+                        <img class="card-img-top" width="100%" height="225" src="<c:url value="${ele.photos}" />"/>
                         <div class="card-body">
                             <h4 class="title-max-chars">${ele.eventName}</h4>
                             <p class="card-text description-max-chars">${ele.eventDetail}</p>
