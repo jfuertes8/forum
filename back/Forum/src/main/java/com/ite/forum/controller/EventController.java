@@ -1,16 +1,20 @@
 package com.ite.forum.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,9 +101,6 @@ public class EventController {
 	@PostMapping("/create")
 	public String altaEvento (RedirectAttributes ratt, Model model, Event evento, HttpSession session, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 		String mensaje;
-		
-		evento.setEvent_dateTime(new Date());
-		evento.setEventDeadline(new Date());
 		
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		
@@ -321,8 +322,6 @@ public class EventController {
 	
 	
 	
-	
-	
 	//El usuario guarda los cambios del evento que ha editado
 	@PostMapping("/savechanges/{eventId}")
 	public String guardarCambios(RedirectAttributes ratt, Model model, Event event, @PathVariable(name="eventId") int  idEvento, HttpSession session) {
@@ -354,7 +353,17 @@ public class EventController {
 			model.addAttribute("mensaje", "<span style=\"padding: 5px; background-color: red; border-radius: 3px; color: white;\">There was an error trying to save the changes. Please try again later.</span>");
 			return "forward:/event/editevent/" + idEvento;
 		}
-		
+	}
+	
+	
+	
+	
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setLenient(false);
+		binder.registerCustomEditor(Date.class,  new CustomDateEditor(sdf, false));
 		
 	}
 	

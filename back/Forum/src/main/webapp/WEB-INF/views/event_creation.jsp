@@ -35,7 +35,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
 
         <div class="text-end">
-          <a href="/event/all">Events</a>
+          <a href="/event/all"><i class="fas fa-meteor"></i> Events</a>
           <a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
           <a href="/event/created_events"> <i class="fas fa-hammer"></i> Created Events</a>
           <a id="register_button" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
@@ -87,7 +87,7 @@
             <div class="mb-3 col-md-4">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
               <div id="emailHelp" class="form-text">When is the event happening?</div>
-              <input type="datetime-local" class="form-control my-3" id="exampleInputPassword1" name="event_dateTimeDate" value="${event.event_dateTime}">
+              <input type="date" class="form-control my-3" id="exampleInputPassword1" name="event_dateTime" value="${event.event_dateTime}">
             </div>
 
           </div>
@@ -98,7 +98,7 @@
               <p>Once this time comes, users will not be able to register anymore for this event.</p>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
-                <input type="datetime-local" class="form-control my-3" id="exampleInputPassword1" name="eventDeadlineDate" value="${event.eventDeadline}">
+                <input type="date" class="form-control my-3" id="exampleInputPassword1" name="eventDeadline" value="${event.eventDeadline}">
               </div>
             </div>
           </div>

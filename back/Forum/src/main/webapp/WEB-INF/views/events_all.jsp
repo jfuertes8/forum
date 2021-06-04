@@ -30,7 +30,7 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
 
                 <div class="text-end">
-                	<a href="/event/all">Events</a>
+                	<a href="/event/all"> <i class="fas fa-meteor"></i> Events</a>
            			<a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
            			<a href="/event/created_events"><i class="fas fa-hammer"></i> Created Events</a>
                     <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
