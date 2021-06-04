@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
            <a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
            <a href="/event/created_events"> <i class="fas fa-hammer"></i> Created Events</a>
            <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
-           <a href="/user/logout"><i class="fas fa-sign-out-alt"></i></a>
+           <a href="/user/logout">Hola ${user.firstName} <i class="fas fa-sign-out-alt"></i></a>
         </div>
       </div>
     </div>
@@ -73,7 +74,8 @@
               <div class="card" style="width: 15rem;">
                 <div class="card-body">
                   <h5 class="card-title"><i class="far fa-calendar-alt"></i> Date</h5>
-                  <p class="card-text">${evento.event_dateTime}</p>
+                  <p class="card-text"><fmt:formatDate pattern = "yyyy-MM-dd" 
+         value = "${evento.event_dateTime}" /></p>
                 </div>
               </div>
             </div>
@@ -81,7 +83,8 @@
               <div class="card" style="width: 15rem;">
                 <div class="card-body">
                   <h5 class="card-title"><i class="far fa-calendar-check"></i> Deadline</h5>
-                  <p class="card-text">${evento.eventDeadline}</p>
+                  <p class="card-text"><fmt:formatDate pattern = "yyyy-MM-dd" 
+         value = "${evento.eventDeadline}" /></p>
                 </div>
               </div>
             </div>

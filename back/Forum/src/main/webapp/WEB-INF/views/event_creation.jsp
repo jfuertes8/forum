@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,8 +39,8 @@
           <a href="/event/all"><i class="fas fa-meteor"></i> Events</a>
           <a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
           <a href="/event/created_events"> <i class="fas fa-hammer"></i> Created Events</a>
-          <a id="register_button" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
-          <a href="/user/logout"><i class="fas fa-sign-out-alt"></i></a>
+          <a href="/event/create" id="register_button" class="btn btn-primary">Create event <i class="fas fa-plus"></i></a>
+          <a href="/user/logout">Hola ${user.firstName} <i class="fas fa-sign-out-alt"></i></a>
         </div>
       </div>
     </div>
@@ -87,7 +88,8 @@
             <div class="mb-3 col-md-4">
               <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
               <div id="emailHelp" class="form-text">When is the event happening?</div>
-              <input type="date" class="form-control my-3" id="exampleInputPassword1" name="event_dateTime" value="${event.event_dateTime}">
+              <input type="date" class="form-control my-3" id="exampleInputPassword1" name="event_dateTime" value="<fmt:formatDate pattern = "yyyy-MM-dd" 
+         value = "${event.event_dateTime}" />">
             </div>
 
           </div>
@@ -98,7 +100,8 @@
               <p>Once this time comes, users will not be able to register anymore for this event.</p>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
-                <input type="date" class="form-control my-3" id="exampleInputPassword1" name="eventDeadline" value="${event.eventDeadline}">
+                <input type="date" class="form-control my-3" id="exampleInputPassword1" name="eventDeadline" value="<fmt:formatDate pattern = "yyyy-MM-dd" 
+         value = "${event.eventDeadline}" />">
               </div>
             </div>
           </div>

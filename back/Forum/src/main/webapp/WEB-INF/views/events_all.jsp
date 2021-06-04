@@ -34,7 +34,7 @@
            			<a href="/event/participate"><i class="fas fa-walking"></i> Attending Events</a>
            			<a href="/event/created_events"><i class="fas fa-hammer"></i> Created Events</a>
                     <a id="register_button" class="btn btn-primary" href="/event/create">Create event <i class="fas fa-plus"></i></a>
-                    <a href="/user/logout"><i class="fas fa-sign-out-alt"></i></a>
+                    <a href="/user/logout">Hola ${user.firstName} <i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
         </div>

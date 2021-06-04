@@ -75,6 +75,7 @@ public class EventController {
 			model.addAttribute("CTA", 0);
 		}
 		
+		model.addAttribute("user", user);
 		return "event";
 	}
 	
@@ -85,7 +86,11 @@ public class EventController {
 	
 	//Mostramos el formulario de creación de evento
 	@GetMapping("/create")
-	public String newEvent(Model model) {
+	public String newEvent(Model model, HttpSession session) {
+		
+		Usuario user = (Usuario) session.getAttribute("userSession");
+		model.addAttribute("user", user);
+		
 		model.addAttribute("CTA_title", "Create Event");
 		model.addAttribute("tab_title", "Create Event");
 		model.addAttribute("action_link", "/event/create");
@@ -120,10 +125,12 @@ public class EventController {
 		if (event != null) {
 			mensaje = "<span style=\"padding: 5px; background-color: lightgreen; border-radius: 3px; color: black;\">evento creado con éxito</span>";
 			ratt.addFlashAttribute("mensaje", mensaje);
+			ratt.addFlashAttribute("user", user);
 			return "redirect:/event/created_events";
 		} else {
 			mensaje = "<span style=\"padding: 5px; background-color: red; border-radius: 3px;\">Ha ocurrido un error al crear el evento</span>";
 			model.addAttribute("mensaje", mensaje);
+			model.addAttribute("user", user);
 			return "event_creation";
 		}
 	}
@@ -155,7 +162,9 @@ public class EventController {
 	public String eventosParticipa(Model model, HttpSession session) {
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		ArrayList<Event> eventosParticipa = bdao.eventosParticipaUsuario(user);
+		
 		model.addAttribute("listado", eventosParticipa);
+		model.addAttribute("user", user);
 		return "my_events";
 	}
 	
@@ -169,7 +178,9 @@ public class EventController {
 	public String eventosCreados(Model model, HttpSession session) {
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		ArrayList<Event> listado = (ArrayList<Event>) edao.eventosCreados(user);
+		
 		model.addAttribute("listado", listado);
+		model.addAttribute("user", user);
 		return "created_events";
 	}
 	
@@ -306,7 +317,9 @@ public class EventController {
 	
 	//Mostramos la pantalla para editar el evento
 	@GetMapping("/editevent/{eventId}")
-	public String editarEvento(Model model, @PathVariable(name="eventId") int  idEvento) {
+	public String editarEvento(Model model, @PathVariable(name="eventId") int  idEvento, HttpSession session) {
+		
+		Usuario user = (Usuario) session.getAttribute("userSession");
 		
 		//Recuperamos el evento que estamos visualiando
 		Event event = edao.mostrarEvento(idEvento);
@@ -316,6 +329,7 @@ public class EventController {
 		model.addAttribute("CTA_title", "Save Changes");
 		model.addAttribute("tab_title", "Edit Event");
 		model.addAttribute("action_link", "/event/savechanges/" + event.getEventId());
+		model.addAttribute("user", user);
 		return "event_creation";
 	}
 	
@@ -331,9 +345,7 @@ public class EventController {
 		
 		//Recuperamos el evento que estamos visualiando
 		Event originalEvent = edao.mostrarEvento(idEvento);
-		
-		event.setEvent_dateTime(new Date());
-		event.setEventDeadline(new Date());
+
 		event.setEventId(idEvento);
 		event.setUsuario(user);
 		event.setAssistants(originalEvent.getAssistants());
