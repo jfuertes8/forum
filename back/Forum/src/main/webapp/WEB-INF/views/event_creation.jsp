@@ -94,29 +94,21 @@
 
           </div>
 
-          <div class="row">
-            <div class="card block deadline-block col-md-6">
-              <h3>Registration deadline</h3>
-              <p>Once this time comes, users will not be able to register anymore for this event.</p>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"><i class="far fa-calendar-alt"></i> Date</label>
-                <input type="date" class="form-control my-3" id="exampleInputPassword1" name="eventDeadline" value="<fmt:formatDate pattern = "yyyy-MM-dd" 
-         value = "${event.eventDeadline}" />">
-              </div>
-            </div>
-          </div>
-
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label my-3"><i class="fas fa-map-marker-alt"></i> Location</label>
               <div id="emailHelp" class="form-text">Please write down the event address so people will know where to go</div>
               <input type="text" class="form-control my-3" id="exampleInputPassword1" name="location" value="${event.location}">
             </div>
             
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label my-3"><i class="fas fa-map-marker-alt"></i> Header photo</label>
-              <div id="emailHelp" class="form-text">Add a photo to display at the top of the event when users access it</div>
-              <input type="file" name="image" accept="image/*" />
-            </div>
+            <c:if test = "${show < 1}">
+            
+	            <div class="mb-3">
+	              <label for="fileUpload" class="form-label my-3"><i class="fas fa-map-marker-alt"></i> Header photo</label>
+	              <div id="fileUpload" class="form-text">Add a photo to display at the top of the event when users access it. Choose it wisely, as you'll not be able to change it later</div>
+	              <input type="file" name="image" accept="image/*" />
+	            </div>
+            
+			</c:if>
             
             <button type="submit" class="btn btn-primary">${CTA_title}</button>
           </form>

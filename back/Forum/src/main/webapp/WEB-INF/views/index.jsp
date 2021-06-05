@@ -93,11 +93,6 @@
                 <input type="password" class="form-control" id="floatingPassword" name="userPassword"">
                 <label for="floatingPassword"><i class="fas fa-key"></i> Password</label>
               </div>
-              <div class="checkbox mb-3">
-                <label>
-                  <input type="checkbox" value="remember-me"> Remember me
-                </label>
-              </div>
               <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
             </form>
           </main>
@@ -112,10 +107,6 @@
       <h1 class="display-5 fw-bold">What is Forum?</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Forum is a website where you can register for any free event with one simple click. Login with your account or create a new one, confirm your assistance and enjoy the event.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Register</button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Login</button>
-        </div>
       </div>
     </div>
   </div>

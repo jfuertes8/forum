@@ -68,4 +68,15 @@ public class BookingDaoImpl implements IntBookingDao {
 	public ArrayList<Booking> buscarReservasEvento(Event event) {
 		return (ArrayList<Booking>) brepo.findByEvent(event);
 	}
+
+	@Override
+	public Booking mostrarReserva(int bookingId) {
+		return brepo.findById(bookingId).orElse(null);
+	}
+
+	@Override
+	public ArrayList<Booking> findBurntBookings(String burn, Event event) {
+		
+		return (ArrayList<Booking>) brepo.findByBurnerAndEvent(burn, event);
+	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -75,6 +76,26 @@ public class EventController {
 			model.addAttribute("CTA", 0);
 		}
 		
+		
+		
+		//Veo si el usuario está en la lista de coordinadores del evento
+		List<Usuario> listadoCoordinadores = evento.getUsuarios();
+		
+		int exists = 0;
+		
+		//Nos recorremos el array y si encuentro el mismo email que el del usuario en sesión cambio exists a 1
+		for (int i = 0; i < listadoCoordinadores.size(); i++) {
+			if (listadoCoordinadores.get(i).getUserEmail().equals(user.getUserEmail())) {
+				exists = 1;
+			}
+		}
+		
+		//Si exists es 1, le pinto el modulo de ver reservas
+		if (exists == 1) {
+			model.addAttribute("coordinator", 1);
+		}
+		
+		
 		model.addAttribute("user", user);
 		return "event";
 	}
@@ -94,6 +115,7 @@ public class EventController {
 		model.addAttribute("CTA_title", "Create Event");
 		model.addAttribute("tab_title", "Create Event");
 		model.addAttribute("action_link", "/event/create");
+		model.addAttribute("show", 0);
 		return "event_creation";
 	}
 	
@@ -112,9 +134,11 @@ public class EventController {
 		evento.setUsuario(user);
 		
 		Event event = erepo.save(evento);
+		
 		String uploadDir = "uploads/" + event.getEventId();
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		
 		evento.setPhotos("/" + uploadDir + "/" + fileName);
 		
 		event = erepo.save(evento);
@@ -139,13 +163,76 @@ public class EventController {
 	
 	
 	
+	
+	//Damos de alta un usuario como coordinador de un evento
+	@GetMapping("/coordinate/{eventId}")
+	public String coordinateEvent(Model model, @PathVariable(name="eventId") int  idEvento, @RequestParam(name="userEmail") String userEmail) {
+		
+		//Buscamos si el usuario existe en la BBDD
+		Usuario user = udao.login(userEmail);
+		
+		//Nos traemos el evento que estamos visualizando
+		Event event = edao.mostrarEvento(idEvento);
+		
+		//Si no existe, le mandamos un mensaje al JSP. Si existe, lo añadimos como coordinador
+		if(user != null) {
+			
+			//Añadimos al usuario al array de la propiedad del evento
+			event.getUsuarios().add(user);
+			
+			//Guardamos el evento de nuevo en la BBDD
+			int savedEvent = edao.altaEvento(event);
+			
+			//Dependiendo de si es OK o no el registro, hacemos una u otra acción
+			if(savedEvent == 1) {
+				model.addAttribute("coordinator-msg" , "User has been successfully registered as coordinator for the event.");
+			} else {
+				model.addAttribute("coordinator-msg" , "There was an error trying to save the user as corrdinator.");
+			}
+			
+		}else {
+			model.addAttribute("coordinator-msg" , "That person is not registered yet. Ask him to create an account so you can invite him to coordinate this event");
+		}
+		
+		model.addAttribute("evento", event);
+		return "forward:/event/view/" + event.getEventId();
+	}
+	
+	
+	
+	//Visualizamos todas las reservas de un evento
+	@GetMapping("/eventbookings/{eventId}")
+	public String verReservas(Model model, @PathVariable(name="eventId") int  idEvento) {
+		
+		//Nos traemos el evento que estamos visualizando
+		Event event = edao.mostrarEvento(idEvento);
+		model.addAttribute("evento", event);
+		
+		//Recuperamos las reservas de ese evento
+		ArrayList<Booking> listadoReservas = bdao.buscarReservasEvento(event);
+		model.addAttribute("listadoReservas", listadoReservas);
+		
+		//Recuperamos las reservas quemadas del evento
+		ArrayList<Booking> burntBookings = bdao.findBurntBookings("y", event);
+		model.addAttribute("reservasQuemadas", burntBookings);
+		
+		return "bookings_list";
+	}
+	
+	
+	
+	
+	
 	 
 	//Abrimos la página de eventos y la cargamos con todos los eventos
 	@GetMapping("/all")
 	public String allEvents (Model model, HttpSession session) {
+		
+		//Nos traemos todos los eventos de la tabla de eventos y los subimos al Model para usarlos en el jsp
 		ArrayList<Event> listadoTodos = (ArrayList<Event>) edao.mostrarTodos();
 		model.addAttribute("listado", listadoTodos);
 		
+		//Nos traemos el usuario logado para utilizar su información en el jsp
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		model.addAttribute("user", user);
 		
@@ -329,6 +416,7 @@ public class EventController {
 		model.addAttribute("CTA_title", "Save Changes");
 		model.addAttribute("tab_title", "Edit Event");
 		model.addAttribute("action_link", "/event/savechanges/" + event.getEventId());
+		model.addAttribute("show", 1);
 		model.addAttribute("user", user);
 		return "event_creation";
 	}
@@ -338,27 +426,55 @@ public class EventController {
 	
 	//El usuario guarda los cambios del evento que ha editado
 	@PostMapping("/savechanges/{eventId}")
-	public String guardarCambios(RedirectAttributes ratt, Model model, Event event, @PathVariable(name="eventId") int  idEvento, HttpSession session) {
+	public String guardarCambios(RedirectAttributes ratt, Model model, Event event, @PathVariable(name="eventId") int  idEvento, HttpSession session/*, @RequestParam("image") MultipartFile multipartFile*/) throws IOException {
 		
 		//Recuperamos el usuario de la sesión
 		Usuario user = (Usuario) session.getAttribute("userSession");
 		
 		//Recuperamos el evento que estamos visualiando
 		Event originalEvent = edao.mostrarEvento(idEvento);
-
-		event.setEventId(idEvento);
-		event.setUsuario(user);
-		event.setAssistants(originalEvent.getAssistants());
 		
-		if (event.getPhotos() == null) {
-			event.setPhotos(originalEvent.getPhotos());
+		//vamos revisando los datos que tenemos y si son distintos lo seteamos
+		if(event.getEventName() != originalEvent.getEventName()) {
+			originalEvent.setEventName(event.getEventName());
 		}
 		
+		if(event.getEventOrganizer() != originalEvent.getEventOrganizer()) {
+			originalEvent.setEventOrganizer(event.getEventOrganizer());
+		}
 		
-		//Guardamos el evento
-		int SaveChangesOk = edao.altaEvento(event);
+		if(event.getEventDetail() != originalEvent.getEventDetail()) {
+			originalEvent.setEventDetail(event.getEventDetail());
+		}
 		
-		if(SaveChangesOk == 1) {
+		if(event.getAssistants() != originalEvent.getAssistants()) {
+			originalEvent.setAssistants(event.getAssistants());
+		}
+		
+		if(event.getEvent_dateTime() != originalEvent.getEvent_dateTime()) {
+			originalEvent.setEvent_dateTime(event.getEvent_dateTime());
+		}
+		
+		if(event.getLocation() != originalEvent.getLocation()) {
+			originalEvent.setLocation(event.getLocation());
+		}
+		
+		originalEvent.setPhotos(originalEvent.getPhotos());
+		
+		/*
+		//Vemos si se ha guardado el nombre de la imagen
+		if (multipartFile != null) {
+			String uploadDir = "uploads/" + originalEvent.getEventId();
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			originalEvent.setPhotos("/" + uploadDir + "/" + fileName);
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		} else {
+			originalEvent.setPhotos(originalEvent.getPhotos());
+		}*/
+		
+		Event newSavedEvent = erepo.save(originalEvent);
+		
+		if(newSavedEvent != null) {
 			ratt.addFlashAttribute("mensaje", "<span style=\"padding: 5px; background-color: lightgreen; border-radius: 3px; color: black;\">All the changes to the event have been saved!</span>");
 			return "redirect:/event/created_events";
 		} else {
@@ -368,6 +484,22 @@ public class EventController {
 	}
 	
 	
+	//Quemamos las reservas que físicamente se personan en el evento
+	@GetMapping("/burn/{bookingId}")
+	public String quemarReserva(Model model, @PathVariable(name="bookingId") int  bookingId) {
+		
+		//Me traigo la reserva de la que hemos hecho clic
+		Booking booking = bdao.mostrarReserva(bookingId);
+
+		
+		//Cambio la columna de quemado a sí
+		booking.setBurner("y");
+		
+		//Volvemos a guardar la reserva para actualizar el dato
+		int savedBooking = bdao.registroEvento(booking);
+		
+		return "forward:/event/eventbookings/" + booking.getEvent().getEventId();
+	}
 	
 	
 	

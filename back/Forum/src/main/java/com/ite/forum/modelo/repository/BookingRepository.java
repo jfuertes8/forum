@@ -15,5 +15,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	public Booking findByEventAndUsuario(Event event, Usuario user);
 	
 	List<Booking> findByEvent(Event event);
+	
+	List<Booking> findByBurnerAndEvent(String burn, Event event);
 
 }

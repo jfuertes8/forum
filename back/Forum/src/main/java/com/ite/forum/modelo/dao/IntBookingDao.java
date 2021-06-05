@@ -23,4 +23,10 @@ public interface IntBookingDao {
 	//Buscar todas las reservas de un evento concreto
 	ArrayList<Booking> buscarReservasEvento(Event event);
 	
+	//Busco la reserva concreta de un evento
+	Booking mostrarReserva(int bookingId);
+	
+	//Buscar reservas quemadas
+	ArrayList<Booking> findBurntBookings(String burn, Event event);
+	
 }

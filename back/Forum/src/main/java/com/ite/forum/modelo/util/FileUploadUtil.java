@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadUtil {
 
 	public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
+		
 		String fileLocation = new File("src/main/resources/static").getAbsolutePath() + "/" + uploadDir;
         //String fileLocation = "src/main/resources/static/uploads/" + uploadDir;
         Path uploadPath = Paths.get(fileLocation);
